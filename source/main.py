@@ -370,12 +370,12 @@ async def doing_the_work(
     )
     message = await context.bot.send_message(
         user_id,
-        "⏳ يتم جلب المعلومات من الموقع ...",
+        f"⏳ يتم جلب المعلومات من الموقع ...\n\n0 / {len(numbers)}  [▫️▫️▫️▫️▫️▫️▫️▫️▫️▫️]",
         reply_to_message_id=user_msg_id,
         reply_markup=keyboard,
     )
     try:
-        gathered_results = await multi_async_request(numbers, recurse_limit)
+        gathered_results = await multi_async_request(numbers, recurse_limit, message)
         students_data = [extract_data(x) for x in gathered_results]
 
         if len(numbers) <= 5 and not html_bl:
